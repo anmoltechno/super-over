@@ -1,0 +1,11 @@
+{
+  "name": "Super Over",
+  "short_name": "Super Over",
+  "description": "Quick-fire cricket: swipe to bat, aim to bowl.",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#060C1A",
+  "theme_color": "#060C1A",
+  "icons": [{ "src": "icon.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" }]
+}
