@@ -1,9 +1,9 @@
 // Super Over in a browser: the game itself is the Swift engine compiled to WebAssembly
 // (Packages/CricketKit, CricketWeb). This file runs it, draws its frames, passes it your touches
 // and builds the menus and the HUD from the state it reports.
-import { wasiImports } from './wasi.js?v=658010c48f';
-import { drawList } from './renderer.js?v=658010c48f';
-import { Sound } from './audio.js?v=658010c48f';
+import { wasiImports } from './wasi.js?v=34c649c114';
+import { drawList } from './renderer.js?v=34c649c114';
+import { Sound } from './audio.js?v=34c649c114';
 
 const canvas = document.getElementById('stage');
 const ctx = canvas.getContext('2d', { alpha: false });
@@ -61,7 +61,7 @@ function floats(pointer, length) {
 
 async function boot() {
   renderLoading(0);
-  const response = await fetch('super-over.wasm?v=658010c48f');
+  const response = await fetch('super-over.wasm?v=34c649c114');
   // The engine's size (web/deploy.sh stamps the real one): a compressed response's
   // content-length counts the compressed bytes, not the ones the reader hands over.
   const total = 13426613;
@@ -93,6 +93,38 @@ async function boot() {
   go('home');
   openLink();
   requestAnimationFrame(frame);
+  // Registered once the engine is in, so the worker's copy comes from the HTTP cache.
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+// MARK: Installing.
+
+let installPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  installPrompt = e;
+  if (screen === 'home') render();
+});
+window.addEventListener('appinstalled', () => {
+  installPrompt = null;
+  if (screen === 'home') render();
+});
+const installed = () => ['standalone', 'fullscreen'].some((m) => matchMedia(`(display-mode: ${m})`).matches) || navigator.standalone === true;
+const isApple = () => /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+function installHTML() {
+  if (installed()) return '';
+  if (installPrompt) return '<button class="install" data-action="install">📲 Install Super Over · plays offline</button>';
+  if (isApple()) return '<button class="install" data-action="install-apple">📲 Add Super Over to your Home Screen</button>';
+  return '';
+}
+
+function appleInstallHTML() {
+  return overlay(`<h2>Add to Home Screen</h2>
+    <p class="dim">Super Over then opens full screen from its own icon, and plays offline.</p>
+    <div class="objectives"><div>1. In Safari, tap <b>Share</b> (on iOS 26 it's in the <b>⋯</b> menu)</div>
+      <div>2. Choose <b>Add to Home Screen</b></div><div>3. Tap <b>Add</b></div></div>
+    <button class="big primary" data-action="close"><b>Got it</b></button>`);
 }
 
 // Links straight into a mode: ?play=blitz (also quick, superover, friend, daily, nets, tour).
@@ -271,6 +303,7 @@ function homeHTML() {
         <button class="big" data-go="nets"><span class="icon">🎯</span><span><b>Nets</b><small>Practice</small></span></button>
         <button class="big quiet" data-action="mute"><span class="icon">${sound.muted ? '🔇' : '🔊'}</span><span><b>Sound</b><small>${sound.muted ? 'Off' : 'On'}</small></span></button>
       </div>
+      ${installHTML()}
       <p class="note">Swipe where you want the ball to go. Flick hard to loft it. Coming to the App Store for iPhone.</p>
     </nav></div>`;
 }
@@ -515,6 +548,16 @@ ui.addEventListener('click', (e) => {
     case 'resume': return command({ cmd: 'resume' });
     case 'stop': return command({ cmd: 'stop' });
     case 'restart': return start(window.__lastStart);
+    case 'install': {
+      const prompt = installPrompt;
+      installPrompt = null;
+      prompt?.prompt();
+      return prompt?.userChoice.finally(render);
+    }
+    case 'install-apple':
+      ui.insertAdjacentHTML('beforeend', appleInstallHTML());
+      return;
+    case 'close': return render();
     case 'menu':
       lastMode = null;
       return go('home');
