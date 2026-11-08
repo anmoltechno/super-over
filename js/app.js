@@ -1,9 +1,9 @@
 // Super Over in a browser: the game itself is the Swift engine compiled to WebAssembly
 // (Packages/CricketKit, CricketWeb). This file runs it, draws its frames, passes it your touches
 // and builds the menus and the HUD from the state it reports.
-import { wasiImports } from './wasi.js?v=a58fcc449b';
-import { drawList } from './renderer.js?v=a58fcc449b';
-import { Sound } from './audio.js?v=a58fcc449b';
+import { wasiImports } from './wasi.js?v=658010c48f';
+import { drawList } from './renderer.js?v=658010c48f';
+import { Sound } from './audio.js?v=658010c48f';
 
 const canvas = document.getElementById('stage');
 const ctx = canvas.getContext('2d', { alpha: false });
@@ -61,7 +61,7 @@ function floats(pointer, length) {
 
 async function boot() {
   renderLoading(0);
-  const response = await fetch('super-over.wasm?v=a58fcc449b');
+  const response = await fetch('super-over.wasm?v=658010c48f');
   // The engine's size (web/deploy.sh stamps the real one): a compressed response's
   // content-length counts the compressed bytes, not the ones the reader hands over.
   const total = 13426613;
