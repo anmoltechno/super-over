@@ -9,9 +9,9 @@
 <meta name="apple-mobile-web-app-title" content="Super Over">
 <meta name="theme-color" content="#060C1A">
 <title>Super Over — quick-fire cricket</title>
-<meta name="description" content="Quick-fire cricket: swipe to bat, aim to bowl, two overs a side. A World Tour of six grounds and a Super Over when it's tied.">
+<meta name="description" content="Quick-fire 3D cricket: swipe to bat, aim to bowl, two overs a side. Play a friend or anyone online, a World Tour of six grounds, and a Super Over when it's tied.">
 <meta property="og:title" content="Super Over — quick-fire cricket">
-<meta property="og:description" content="Swipe to bat, aim to bowl. Two overs a side, right in your browser.">
+<meta property="og:description" content="Swipe to bat, aim to bowl. Two overs a side, against a friend or anyone online, right in your browser.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://anmoltechno.github.io/super-over/">
 <meta property="og:image" content="https://anmoltechno.github.io/super-over/card.jpg">
@@ -22,13 +22,16 @@
 <link rel="icon" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="style.css?v=34c649c114">
+<link rel="preload" href="fonts/barlow-condensed-800i.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=3e8390bab3">
 </head>
 <body>
 <canvas id="stage"></canvas>
 <div id="ui"></div>
+<div id="fx" aria-live="polite"></div>
 <div id="probe" aria-hidden="true"></div>
 <noscript><p style="color:#fff;padding:2em">Super Over needs JavaScript and WebAssembly.</p></noscript>
-<script type="module" src="js/app.js?v=34c649c114"></script>
+<script type="module" src="js/app.js?v=3e8390bab3"></script>
 </body>
 </html>

@@ -18,16 +18,18 @@
   .muted { color: var(--muted); font-size: 15px; }
   a { color: var(--accent); }
   ul { padding-left: 22px; }
+  code { font-size: .92em; }
   nav { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 15px; }
 </style>
 </head>
 <body>
 <main>
   <header><img src="icon.png" alt=""><h1>Super Over privacy policy</h1></header>
-  <p class="muted">Last updated: 8 November 2026</p>
+  <p class="muted">Last updated: 12 November 2026</p>
 
   <p>Super Over doesn't collect, store on a server, share or sell any information about you. There are no accounts, no
-    analytics, no advertising and no tracking of any kind. The iPhone and iPad app never connects to the internet.</p>
+    analytics, no advertising and no tracking of any kind. The iPhone and iPad app never connects to the internet. In the
+    browser version, a match online connects your device to your opponent's: what that involves is set out below.</p>
 
   <h2>What stays on your device</h2>
   <p>Super Over keeps only these, on your device:</p>
@@ -45,6 +47,23 @@
     sends nothing back. GitHub, as the host, may log technical details of requests (such as IP addresses) to run and
     secure its service; see <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
 
+  <h2>Online matches (browser version)</h2>
+  <p>Nothing here happens unless you choose <b>Play Online</b>. When you do:</p>
+  <ul>
+    <li>To find your opponent, your browser contacts a matchmaking service: the public server of the open-source
+      <a href="https://peerjs.com">PeerJS</a> project (<code>0.peerjs.com</code>). It learns your IP address, a random
+      connection id made for that session and, when you play a friend, the four-letter match code. Super Over doesn't
+      run this server and sends it nothing else.</li>
+    <li>The match itself runs over a direct connection between your browser and your opponent's (WebRTC). To set that
+      up, your browser also contacts a Google STUN server and, where a direct connection isn't possible, relays the match
+      through a PeerJS TURN server. As with any direct connection, your opponent's device and these servers can see your
+      IP address.</li>
+    <li>Your opponent's device is sent your team's name and colours, what you do in the match (the deliveries you bowl,
+      the strokes you play), and the reactions you tap. None of it is stored anywhere by Super Over: it's gone when the
+      match ends, apart from the win, the coins and the record each of you keeps on your own device.</li>
+  </ul>
+  <p>Your team's name is whatever you type, so don't put anything in it you wouldn't want an opponent to read.</p>
+
   <h2>Device features</h2>
   <ul>
     <li><b>Touch</b> is read only while you play.</li>
@@ -53,7 +72,8 @@
   </ul>
 
   <h2>Children</h2>
-  <p>Super Over is rated 4+ and collects nothing from anyone, children included.</p>
+  <p>Super Over is rated 4+ and collects nothing from anyone, children included. Online matches in the browser version
+    connect players to each other as described above; there's no chat, only four fixed reactions.</p>
 
   <h2>Changes and contact</h2>
   <p>If this policy changes, the new version will be posted here with a new date. Questions about privacy:
